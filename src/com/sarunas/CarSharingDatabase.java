@@ -30,6 +30,21 @@ public class CarSharingDatabase {
         }
     }
 
+    public static void createCarTable() {
+        Connection conn = getConnection();
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS CAR" +
+                    "(ID INTEGER PRIMARY KEY AUTO_INCREMENT," +
+                    "NAME VARCHAR(255) UNIQUE NOT NULL" +
+                    "COMPANY_ID INTEGER NOT NULL" +
+                    "FOREIGN KEY(COMPANY_ID) REFERENCES COMPANY(COMPANY_ID)";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Connection getConnection() {
         Connection conn = null;
         try {

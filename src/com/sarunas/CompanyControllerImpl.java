@@ -35,10 +35,25 @@ public class CompanyControllerImpl implements CompanyController{
             while (rs.next()) {
                 list.add(new Company(rs.getString("name")));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public Company getCompany(String id) {
+        String sql = "SELECT NAME FROM COMPANY WHERE ID = " + id;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                return new Company(rs.getString("NAME"));
+
+            }
+        } catch (SQLException e) {
+            System.out.println("There is no that choice");
+        }
+        return null;
     }
 }
