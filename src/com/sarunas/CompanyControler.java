@@ -4,6 +4,6 @@ import java.util.List;
 
 interface CompanyController {
     void save(Company company);
-    List<Company> getAll();
-    Company getCompany(String id);
+    List<Company> findAllCompanies();
+    Company findCompany(String id);
 }

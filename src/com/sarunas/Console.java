@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 public class Console {
 
-    private CompanyController controller;
+    private final Service service;
 
-    public Console(CompanyController controller) {
-        this.controller = controller;
+    public Console(Service service) {
+        this.service = service;
     }
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     public void consoleAction() {
         while (true) {
             System.out.println("1. Log in as a manager ");
@@ -28,7 +28,9 @@ public class Console {
                     if ("0".equals(choice)) {
                         break;
                     } else if ("1".equals(choice)) {
-                        while (true) {
+                        System.out.println("Choose the company: ");
+                        boolean companyList = true;
+                        while (companyList) {
                             printCompany();
                             System.out.println();
                             String companyChoice = scanner.nextLine();
@@ -36,7 +38,7 @@ public class Console {
                             if ("0".equals(companyChoice)) {
                                 break;
                             } else {
-                                Company company = controller.getCompany(companyChoice);
+                                Company company = service.getCompany(companyChoice);
                                 if (company != null) {
                                     String name = company.getName();
                                     System.out.println("'" + name + "' company");
@@ -45,19 +47,17 @@ public class Console {
                                         String carOptionChoice = scanner.nextLine();
                                         System.out.println("> " + carOptionChoice + "\n");
                                         if ("0".equals(carOptionChoice)) {
+                                            companyList = false;
                                             break;
                                         } else if ("1".equals(carOptionChoice)) {
-                                            System.out.println("The car list is empty! \n");
-
-
+                                            printCar(companyChoice);
+                                            System.out.println();
                                         } else if ("2".equals(carOptionChoice)) {
                                             System.out.println("Enter the car name: ");
                                             String carName = scanner.nextLine();
                                             System.out.println("> " + carName);
+                                            service.saveCar(new Car(carName, Integer.parseInt(companyChoice)));
                                             System.out.println("The car was added! \n");
-
-
-
                                         }
                                     }
 
@@ -69,7 +69,7 @@ public class Console {
                         String companyName = scanner.nextLine();
                         System.out.println("> " + companyName + "\n");
                         if (checkingCompanyName(companyName)) {
-                            controller.save(new Company(companyName));
+                            service.saveCompany(new Company(companyName));
                         } else {
                             System.out.println("The company was created!");
                         }
@@ -81,10 +81,9 @@ public class Console {
 
 
     private void printCompany() {
-        List<Company> companies = controller.getAll();
+        List<Company> companies = service.getAllCompanies();
         int count = 1;
         if (!companies.isEmpty()) {
-            System.out.println("Choose the company: ");
             for (Company company : companies) {
                 System.out.println(count + ". " + company.getName());
                 count++;
@@ -97,13 +96,27 @@ public class Console {
 
 
     private boolean checkingCompanyName(String companyName) {
-        List<Company> companies = controller.getAll();
+        List<Company> companies = service.getAllCompanies();
         for (Company company : companies) {
             if (companyName.equals(company.getName())) {
                 return false;
             }
         }
         return true;
+    }
+
+    private void printCar(String companyId) {
+        List<Car> cars = service.getAllCars(companyId);
+        int count = 1;
+        if (!cars.isEmpty()) {
+            System.out.println("Car list: ");
+            for (Car car : cars) {
+                System.out.println(count + ". " + car.getName());
+                count++;
+            }
+        } else {
+            System.out.println("The car list is empty! \n");
+        }
     }
 
     private void printCompanyChoice() {

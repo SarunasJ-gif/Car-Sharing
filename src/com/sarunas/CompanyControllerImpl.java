@@ -26,7 +26,7 @@ public class CompanyControllerImpl implements CompanyController{
     }
 
     @Override
-    public List<Company> getAll() {
+    public List<Company> findAllCompanies() {
         List<Company> list = new ArrayList<Company>();
         String sql = "SELECT * FROM COMPANY";
         try {
@@ -42,17 +42,16 @@ public class CompanyControllerImpl implements CompanyController{
     }
 
     @Override
-    public Company getCompany(String id) {
+    public Company findCompany(String id) {
         String sql = "SELECT NAME FROM COMPANY WHERE ID = " + id;
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 return new Company(rs.getString("NAME"));
-
             }
         } catch (SQLException e) {
-            System.out.println("There is no that choice");
+            e.printStackTrace();
         }
         return null;
     }
