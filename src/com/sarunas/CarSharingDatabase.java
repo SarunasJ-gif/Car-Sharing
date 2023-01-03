@@ -52,9 +52,7 @@ public class CarSharingDatabase {
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL,userName,password);
-            System.out.println("Connected");
         } catch (SQLException e) {
-            System.out.println("No connection");
             e.printStackTrace();
         } catch (Exception ex) {
             ex.printStackTrace();

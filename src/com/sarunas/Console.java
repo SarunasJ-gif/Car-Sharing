@@ -28,11 +28,10 @@ public class Console {
                     if ("0".equals(choice)) {
                         break;
                     } else if ("1".equals(choice)) {
-                        System.out.println("Choose the company: ");
+                        boolean isCompany = printCompany();
+                        System.out.println();
                         boolean companyList = true;
-                        while (companyList) {
-                            printCompany();
-                            System.out.println();
+                        while (companyList && isCompany) {
                             String companyChoice = scanner.nextLine();
                             System.out.println("> " + companyChoice + "\n");
                             if ("0".equals(companyChoice)) {
@@ -80,17 +79,20 @@ public class Console {
     }
 
 
-    private void printCompany() {
+    private boolean printCompany() {
         List<Company> companies = service.getAllCompanies();
         int count = 1;
         if (!companies.isEmpty()) {
+            System.out.println("Choose the company: ");
             for (Company company : companies) {
                 System.out.println(count + ". " + company.getName());
                 count++;
             }
             System.out.println("0. Back ");
+            return true;
         } else {
             System.out.println("The company list is empty! \n");
+            return false;
         }
     }
 
