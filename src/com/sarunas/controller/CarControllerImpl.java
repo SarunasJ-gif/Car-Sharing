@@ -1,4 +1,8 @@
-package com.sarunas;
+package com.sarunas.controller;
+
+import com.sarunas.CarSharingDatabase;
+import com.sarunas.controller.CarController;
+import com.sarunas.model.Car;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

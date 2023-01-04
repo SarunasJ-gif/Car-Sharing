@@ -1,4 +1,4 @@
-package com.sarunas;
+package com.sarunas.model;
 
 public class Car {
 

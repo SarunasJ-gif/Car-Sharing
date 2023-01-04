@@ -1,4 +1,8 @@
-package com.sarunas;
+package com.sarunas.controller;
+
+import com.sarunas.CarSharingDatabase;
+import com.sarunas.controller.CompanyController;
+import com.sarunas.model.Company;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyControllerImpl implements CompanyController{
+public class CompanyControllerImpl implements CompanyController {
 
     private Connection conn = CarSharingDatabase.getConnection();
 

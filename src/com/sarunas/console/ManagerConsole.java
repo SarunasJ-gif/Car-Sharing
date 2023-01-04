@@ -1,13 +1,17 @@
-package com.sarunas;
+package com.sarunas.console;
+
+import com.sarunas.model.Car;
+import com.sarunas.model.Company;
+import com.sarunas.service.Service;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class Console {
+public class ManagerConsole {
 
     private final Service service;
 
-    public Console(Service service) {
+    public ManagerConsole(Service service) {
         this.service = service;
     }
 

@@ -1,4 +1,9 @@
-package com.sarunas;
+package com.sarunas.service;
+
+import com.sarunas.controller.CarController;
+import com.sarunas.controller.CompanyController;
+import com.sarunas.model.Car;
+import com.sarunas.model.Company;
 
 import java.util.List;
 

@@ -47,6 +47,21 @@ public class CarSharingDatabase {
         }
     }
 
+    public static void createCustomerTable() {
+        Connection conn = getConnection();
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS CUSTOMER" +
+                    "(ID INTEGER PRIMARY KEY AUTO_INCREMENT," +
+                    "NAME VARCHAR(255) UNIQUE NOTT NULL," +
+                    "RENTED_CAR_ID INTEGER," +
+                    "CONSTRAINT FK_CAR FOREIGN KEY(RENTED_CAR_ID) REFERENCES CAR(ID))";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Connection getConnection() {
         Connection conn = null;
         try {
