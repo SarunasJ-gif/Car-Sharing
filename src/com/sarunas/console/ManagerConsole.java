@@ -7,7 +7,7 @@ import com.sarunas.service.Service;
 import java.util.List;
 import java.util.Scanner;
 
-public class ManagerConsole {
+public class ManagerConsole extends Console {
 
     private final Service service;
 
@@ -16,15 +16,17 @@ public class ManagerConsole {
     }
 
     private final Scanner scanner = new Scanner(System.in);
+
+    @Override
     public void consoleAction() {
-        while (true) {
-            System.out.println("1. Log in as a manager ");
-            System.out.println("0. Exit ");
-            String menu = scanner.nextLine();
-            System.out.println("> " + menu + "\n");
-            if ("0".equals(menu)) {
-                break;
-            } else if ("1".equals(menu)) {
+ //       while (true) {
+//            System.out.println("1. Log in as a manager ");
+//            System.out.println("0. Exit ");
+//            String menu = scanner.nextLine();
+//            System.out.println("> " + menu + "\n");
+//            if ("0".equals(menu)) {
+//                break;
+//            } else if ("1".equals(menu)) {
                 while (true) {
                     printCompanyChoice();
                     String choice = scanner.nextLine();
@@ -78,8 +80,8 @@ public class ManagerConsole {
                         }
                     }
                 }
-            }
-        }
+ //           }
+ //       }
     }
 
 

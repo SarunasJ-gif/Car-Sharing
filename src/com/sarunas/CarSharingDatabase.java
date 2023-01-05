@@ -54,9 +54,11 @@ public class CarSharingDatabase {
             stmt = conn.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS CUSTOMER" +
                     "(ID INTEGER PRIMARY KEY AUTO_INCREMENT," +
-                    "NAME VARCHAR(255) UNIQUE NOTT NULL," +
-                    "RENTED_CAR_ID INTEGER," +
+                    "NAME VARCHAR(255) UNIQUE NOT NULL," +
+                    "RENTED_CAR_ID INTEGER DEFAULT NULL," +
                     "CONSTRAINT FK_CAR FOREIGN KEY(RENTED_CAR_ID) REFERENCES CAR(ID))";
+            stmt.executeUpdate(sql);
+            conn.setAutoCommit(true);
         } catch (SQLException e) {
             e.printStackTrace();
         }

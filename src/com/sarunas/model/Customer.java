@@ -5,6 +5,10 @@ public class Customer {
     private String name;
     private int rentedCar_id;
 
+    public Customer(String name) {
+        this.name = name;
+    }
+
     public Customer(String name, int rentedCar_id) {
         this.name = name;
         this.rentedCar_id = rentedCar_id;

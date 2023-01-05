@@ -2,8 +2,10 @@ package com.sarunas.service;
 
 import com.sarunas.controller.CarController;
 import com.sarunas.controller.CompanyController;
+import com.sarunas.controller.CustomerController;
 import com.sarunas.model.Car;
 import com.sarunas.model.Company;
+import com.sarunas.model.Customer;
 
 import java.util.List;
 
@@ -11,10 +13,14 @@ public class Service {
 
     private final CompanyController companyController;
     private final CarController carController;
+    private final CustomerController customerController;
 
-    public Service(CompanyController companyController, CarController carController) {
+    public Service(CompanyController companyController,
+                   CarController carController,
+                   CustomerController customerController) {
         this.companyController = companyController;
         this.carController = carController;
+        this.customerController = customerController;
     }
 
     public List<Company> getAllCompanies() {
@@ -36,4 +42,13 @@ public class Service {
     public void saveCar(Car car) {
         carController.save(car);
     }
+
+    public void saveCustomer(Customer customer) {
+        customerController.save(customer);
+    }
+
+    public List<Customer> getAllCustomers() {
+        return customerController.findAllCustomers();
+    }
+
 }
