@@ -17,6 +17,7 @@ public class CompanyControllerImpl implements CompanyController {
     public CompanyControllerImpl() {
     }
 
+    @Override
     public void save(Company company) {
         String sql = "INSERT INTO COMPANY (NAME) VALUES (?)";
         try {

@@ -34,9 +34,11 @@ public class CarControllerImpl implements CarController {
     @Override
     public List<Car> findAllCars(String company_Id) {
         List<Car> cars = new ArrayList<Car>();
-        String sql = "SELECT * FROM CAR WHERE COMPANY_ID = " + company_Id;
+        String sql = "SELECT ID, NAME, COMPANY_ID FROM CAR WHERE COMPANY_ID = ? AND ID NOT IN" +
+                "(SELECT RENTED_CAR_ID FROM CUSTOMER WHERE RENTED_CAR_ID IS NOT NULL)";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, Integer.parseInt(company_Id));
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("NAME");

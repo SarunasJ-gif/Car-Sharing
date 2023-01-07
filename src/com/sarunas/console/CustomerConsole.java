@@ -49,7 +49,7 @@ public class CustomerConsole extends Console {
                                     if (isCompany) {
                                         rentCar(chosenCustomer);
                                     } else {
-                                        customerListInAction = false;
+                                        customerListInAction = false;             //--------------rent list = false
                                     }
                                 }
                             } else if ("2".equals(carRentOption)) {
@@ -85,13 +85,23 @@ public class CustomerConsole extends Console {
             if (company != null) {
                 while (true) {
                     Map<Integer, String> carList = printCar(chosenCompany);
-                    String chosenCarNr = scanner.nextLine();
-                    System.out.println("> " + chosenCarNr + "\n");
-                    String carName = carList.get(Integer.parseInt(chosenCarNr));
-                    if (carName != null) {
-                        int carId = service.getCar(carName);
-                        service.updateCustomerRentedCarId(Integer.parseInt(chosenCustomer), carId);
-                        System.out.println("You rented '" + carName + "' \n");
+                    if (!carList.isEmpty()) {
+                        String chosenCarNr = scanner.nextLine();
+                        if ("0".equals(chosenCarNr)) {
+                            rentCar = false;
+                            break;
+                        } else {
+                            System.out.println("> " + chosenCarNr + "\n");
+                            String carName = carList.get(Integer.parseInt(chosenCarNr));
+                            if (carName != null) {
+                                int carId = service.getCar(carName);
+                                service.updateCustomerRentedCarId(Integer.parseInt(chosenCustomer), carId);
+                                System.out.println("You rented '" + carName + "' \n");
+                                rentCar = false;
+                                break;
+                            }
+                        }
+                    } else {
                         rentCar = false;
                         break;
                     }
@@ -99,7 +109,6 @@ public class CustomerConsole extends Console {
             } else {
                 printCompany();
             }
-
         }
     }
 
@@ -166,7 +175,7 @@ public class CustomerConsole extends Console {
                 carsList.put(count, car.getName());
                 count++;
             }
-        System.out.println("0. Back ");
+        System.out.println("0. Back \n");
         } else {
             System.out.println("The car list is empty! \n");
         }
