@@ -44,4 +44,20 @@ public class CustomerControllerImpl implements CustomerController {
         }
         return customers;
     }
+
+    @Override
+    public int findCarId(String id) {
+        String sql = "SELECT RENTED_CAR_ID FROM CUSTOMER WHERE ID = " + id;
+        int rentedCarId = 0;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                rentedCarId = rs.getInt("RENTED_CAR_ID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rentedCarId;
+    }
 }

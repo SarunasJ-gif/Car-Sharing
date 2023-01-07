@@ -49,4 +49,22 @@ public class CarControllerImpl implements CarController {
         }
         return cars;
     }
+
+    @Override
+    public Car findCar(int id) {
+        String sql = "SELECT * FROM CAR WHERE ID = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("NAME");
+                int companyId = rs.getInt("COMPANY_ID");
+                return new Car(name, companyId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

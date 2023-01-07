@@ -51,4 +51,12 @@ public class Service {
         return customerController.findAllCustomers();
     }
 
+    public int getCarId(String id) {
+        return customerController.findCarId(id);
+    }
+
+    public Car getCar(int id) {
+        return carController.findCar(id);
+    }
+
 }
