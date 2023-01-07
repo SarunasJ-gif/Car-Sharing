@@ -7,5 +7,7 @@ import java.util.List;
 public interface CustomerController {
     void save(Customer customer);
     List<Customer> findAllCustomers();
-    int findCarId(String id);
+    int findRentedCarId(String id);
+    void updateRentedCarId(int customerId, int rentedCarId);
+    Customer findCustomer(String id);
 }

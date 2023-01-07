@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CustomerControllerImpl implements CustomerController {
 
-    private Connection conn = CarSharingDatabase.getConnection();
+    private final Connection conn = CarSharingDatabase.getConnection();
 
     public CustomerControllerImpl() {
     }
@@ -46,7 +46,7 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     @Override
-    public int findCarId(String id) {
+    public int findRentedCarId(String id) {
         String sql = "SELECT RENTED_CAR_ID FROM CUSTOMER WHERE ID = " + id;
         int rentedCarId = 0;
         try {
@@ -59,5 +59,42 @@ public class CustomerControllerImpl implements CustomerController {
             e.printStackTrace();
         }
         return rentedCarId;
+    }
+
+    @Override
+    public void updateRentedCarId(int customerId, int rentedCarId) {
+        try {
+            PreparedStatement stmt;
+            if (rentedCarId != 0) {
+                stmt = conn.prepareStatement(
+                        "UPDATE CUSTOMER SET RENTED_CAR_ID = ? WHERE ID = ?");
+                stmt.setInt(1, rentedCarId);
+                stmt.setInt(2, customerId);
+            } else {
+                stmt = conn.prepareStatement(
+                        "UPDATE CUSTOMER SET RENTED_CAR_ID = NULL WHERE ID = ?");
+                stmt.setInt(1, customerId);
+            }
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Customer findCustomer(String id) {
+        String sql = "SELECT * FROM CUSTOMER WHERE ID = " + id;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("NAME");
+                int rentedCarId = rs.getInt("RENTED_CAR_ID");
+                return new Customer(name, rentedCarId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

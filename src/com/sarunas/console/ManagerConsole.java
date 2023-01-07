@@ -19,69 +19,59 @@ public class ManagerConsole extends Console {
 
     @Override
     public void consoleAction() {
- //       while (true) {
-//            System.out.println("1. Log in as a manager ");
-//            System.out.println("0. Exit ");
-//            String menu = scanner.nextLine();
-//            System.out.println("> " + menu + "\n");
-//            if ("0".equals(menu)) {
-//                break;
-//            } else if ("1".equals(menu)) {
-                while (true) {
-                    printCompanyChoice();
-                    String choice = scanner.nextLine();
-                    System.out.println("> " + choice + "\n");
-                    if ("0".equals(choice)) {
+        while (true) {
+            printCompanyChoice();
+            String choice = scanner.nextLine();
+            System.out.println("> " + choice + "\n");
+            if ("0".equals(choice)) {
+                break;
+            } else if ("1".equals(choice)) {
+                boolean isCompany = printCompany();
+                System.out.println();
+                boolean companyList = true;
+                while (companyList && isCompany) {
+                    String companyChoice = scanner.nextLine();
+                    System.out.println("> " + companyChoice + "\n");
+                    if ("0".equals(companyChoice)) {
                         break;
-                    } else if ("1".equals(choice)) {
-                        boolean isCompany = printCompany();
-                        System.out.println();
-                        boolean companyList = true;
-                        while (companyList && isCompany) {
-                            String companyChoice = scanner.nextLine();
-                            System.out.println("> " + companyChoice + "\n");
-                            if ("0".equals(companyChoice)) {
-                                break;
-                            } else {
-                                Company company = service.getCompany(companyChoice);
-                                if (company != null) {
-                                    String name = company.getName();
-                                    System.out.println("'" + name + "' company");
-                                    while (true) {
-                                        printCarChoice();
-                                        String carOptionChoice = scanner.nextLine();
-                                        System.out.println("> " + carOptionChoice + "\n");
-                                        if ("0".equals(carOptionChoice)) {
-                                            companyList = false;
-                                            break;
-                                        } else if ("1".equals(carOptionChoice)) {
-                                            printCar(companyChoice);
-                                            System.out.println();
-                                        } else if ("2".equals(carOptionChoice)) {
-                                            System.out.println("Enter the car name: ");
-                                            String carName = scanner.nextLine();
-                                            System.out.println("> " + carName);
-                                            service.saveCar(new Car(carName, Integer.parseInt(companyChoice)));
-                                            System.out.println("The car was added! \n");
-                                        }
-                                    }
-
+                    } else {
+                        Company company = service.getCompany(companyChoice);
+                        if (company != null) {
+                            String name = company.getName();
+                            System.out.println("'" + name + "' company");
+                            while (true) {
+                                printCarChoice();
+                                String carOptionChoice = scanner.nextLine();
+                                System.out.println("> " + carOptionChoice + "\n");
+                                if ("0".equals(carOptionChoice)) {
+                                    companyList = false;
+                                    break;
+                                } else if ("1".equals(carOptionChoice)) {
+                                    printCar(companyChoice);
+                                    System.out.println();
+                                } else if ("2".equals(carOptionChoice)) {
+                                    System.out.println("Enter the car name: ");
+                                    String carName = scanner.nextLine();
+                                    System.out.println("> " + carName);
+                                    service.saveCar(new Car(carName, Integer.parseInt(companyChoice)));
+                                    System.out.println("The car was added! \n");
                                 }
                             }
-                        }
-                    } else if ("2".equals(choice)) {
-                        System.out.println("Enter the company name:");
-                        String companyName = scanner.nextLine();
-                        System.out.println("> " + companyName + "\n");
-                        if (checkingCompanyName(companyName)) {
-                            service.saveCompany(new Company(companyName));
-                        } else {
-                            System.out.println("The company was created!");
+
                         }
                     }
                 }
- //           }
- //       }
+            } else if ("2".equals(choice)) {
+                System.out.println("Enter the company name:");
+                String companyName = scanner.nextLine();
+                System.out.println("> " + companyName + "\n");
+                if (checkingCompanyName(companyName)) {
+                    service.saveCompany(new Company(companyName));
+                } else {
+                    System.out.println("The company was created!");
+                }
+            }
+        }
     }
 
 
@@ -113,7 +103,7 @@ public class ManagerConsole extends Console {
         return true;
     }
 
-    private void printCar(String companyId) {
+     private void printCar(String companyId) {
         List<Car> cars = service.getAllCars(companyId);
         int count = 1;
         if (!cars.isEmpty()) {

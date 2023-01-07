@@ -51,12 +51,23 @@ public class Service {
         return customerController.findAllCustomers();
     }
 
-    public int getCarId(String id) {
-        return customerController.findCarId(id);
+    public int getRentedCarId(String id) {
+        return customerController.findRentedCarId(id);
     }
 
-    public Car getCar(int id) {
-        return carController.findCar(id);
+    public int getCar(String carName) {
+        return carController.findCar(carName);
     }
 
+    public Car getCarById(String id) {
+        return carController.findCarById(id);
+    }
+
+    public void updateCustomerRentedCarId(int customerId, int rentedCarId) {
+        customerController.updateRentedCarId(customerId, rentedCarId);
+    }
+
+    public Customer getCustomer(String id) {
+        return customerController.findCustomer(id);
+    }
 }

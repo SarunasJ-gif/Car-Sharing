@@ -1,7 +1,6 @@
 package com.sarunas.controller;
 
 import com.sarunas.CarSharingDatabase;
-import com.sarunas.controller.CompanyController;
 import com.sarunas.model.Company;
 
 import java.sql.Connection;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class CompanyControllerImpl implements CompanyController {
 
-    private Connection conn = CarSharingDatabase.getConnection();
+    private final Connection conn = CarSharingDatabase.getConnection();
 
     public CompanyControllerImpl() {
     }

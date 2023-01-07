@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CarControllerImpl implements CarController {
 
-    private Connection conn = CarSharingDatabase.getConnection();
+    private final Connection conn = CarSharingDatabase.getConnection();
 
     public CarControllerImpl() {}
 
@@ -51,11 +51,26 @@ public class CarControllerImpl implements CarController {
     }
 
     @Override
-    public Car findCar(int id) {
-        String sql = "SELECT * FROM CAR WHERE ID = ?";
+    public int findCar(String carName) {
+        String sql = "SELECT * FROM CAR WHERE NAME = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, carName);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("ID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public Car findCarById(String id) {
+        String sql = "SELECT * FROM CAR WHERE ID = " + id;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("NAME");
