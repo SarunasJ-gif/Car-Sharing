@@ -48,7 +48,6 @@ public class CustomerConsole extends Console {
                                     boolean isCompany = printCompany();
                                     if (isCompany) {
                                         rentCar(chosenCustomer);
-
                                     } else {
                                         customerListInAction = false;
                                     }
@@ -84,20 +83,23 @@ public class CustomerConsole extends Console {
             System.out.println("> " + chosenCompany + "\n");
             Company company = service.getCompany(chosenCompany);
             if (company != null) {
-                Map<Integer, String> carList = printCar(chosenCompany);
-                String chosenCarNr = scanner.nextLine();
-                System.out.println("> " + chosenCarNr + "\n");
-                String carName = carList.get(Integer.parseInt(chosenCarNr));
-                System.out.println(carName);
-                int carId = service.getCar(carName);
-                if (carId != 0) {
-                    service.updateCustomerRentedCarId(Integer.parseInt(chosenCustomer), carId);
-                    System.out.println("You rented '" + carName + "' \n");
-                    rentCar = false;
-                } else {
-                    System.out.println("Wrong choice");
+                while (true) {
+                    Map<Integer, String> carList = printCar(chosenCompany);
+                    String chosenCarNr = scanner.nextLine();
+                    System.out.println("> " + chosenCarNr + "\n");
+                    String carName = carList.get(Integer.parseInt(chosenCarNr));
+                    if (carName != null) {
+                        int carId = service.getCar(carName);
+                        service.updateCustomerRentedCarId(Integer.parseInt(chosenCustomer), carId);
+                        System.out.println("You rented '" + carName + "' \n");
+                        rentCar = false;
+                        break;
+                    }
                 }
+            } else {
+                printCompany();
             }
+
         }
     }
 
