@@ -1,4 +1,4 @@
-package com.sarunas.controller;
+package com.sarunas.repository;
 
 import com.sarunas.CarSharingDatabase;
 import com.sarunas.model.Customer;
@@ -10,11 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerControllerImpl implements CustomerController {
+public class CustomerRepositoryImpl implements CustomerRepository {
 
     private final Connection conn = CarSharingDatabase.getConnection();
 
-    public CustomerControllerImpl() {
+    public CustomerRepositoryImpl() {
     }
 
     @Override

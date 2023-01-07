@@ -1,4 +1,4 @@
-package com.sarunas.console;
+package com.sarunas.controller;
 
 import com.sarunas.model.Car;
 import com.sarunas.model.Company;
@@ -7,11 +7,11 @@ import com.sarunas.service.Service;
 import java.util.List;
 import java.util.Scanner;
 
-public class ManagerConsole extends Console {
+public class ManagerController extends MenuController {
 
     private final Service service;
 
-    public ManagerConsole(Service service) {
+    public ManagerController(Service service) {
         this.service = service;
     }
 

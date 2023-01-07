@@ -1,10 +1,10 @@
-package com.sarunas.console;
+package com.sarunas.controller;
 
 
-public class Console {
+public class MenuController {
 
 
-    public Console() {}
+    public MenuController() {}
 
     public void consoleAction() {
         System.out.println("1. Log in as a manager ");

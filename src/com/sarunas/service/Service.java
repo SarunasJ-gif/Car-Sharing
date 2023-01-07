@@ -1,8 +1,8 @@
 package com.sarunas.service;
 
-import com.sarunas.controller.CarController;
-import com.sarunas.controller.CompanyController;
-import com.sarunas.controller.CustomerController;
+import com.sarunas.repository.CarRepository;
+import com.sarunas.repository.CompanyRepository;
+import com.sarunas.repository.CustomerRepository;
 import com.sarunas.model.Car;
 import com.sarunas.model.Company;
 import com.sarunas.model.Customer;
@@ -11,63 +11,63 @@ import java.util.List;
 
 public class Service {
 
-    private final CompanyController companyController;
-    private final CarController carController;
-    private final CustomerController customerController;
+    private final CompanyRepository companyRepository;
+    private final CarRepository carRepository;
+    private final CustomerRepository customerRepository;
 
-    public Service(CompanyController companyController,
-                   CarController carController,
-                   CustomerController customerController) {
-        this.companyController = companyController;
-        this.carController = carController;
-        this.customerController = customerController;
+    public Service(CompanyRepository companyRepository,
+                   CarRepository carRepository,
+                   CustomerRepository customerRepository) {
+        this.companyRepository = companyRepository;
+        this.carRepository = carRepository;
+        this.customerRepository = customerRepository;
     }
 
     public List<Company> getAllCompanies() {
-        return companyController.findAllCompanies();
+        return companyRepository.findAllCompanies();
     }
 
     public void saveCompany(Company company) {
-        companyController.save(company);
+        companyRepository.save(company);
     }
 
     public Company getCompany(String id) {
-        return companyController.findCompany(id);
+        return companyRepository.findCompany(id);
     }
 
     public List<Car> getAllCars(String company_Id) {
-        return carController.findAllCars(company_Id);
+        return carRepository.findAllCars(company_Id);
     }
 
     public void saveCar(Car car) {
-        carController.save(car);
+        carRepository.save(car);
     }
 
     public void saveCustomer(Customer customer) {
-        customerController.save(customer);
+        customerRepository.save(customer);
     }
 
     public List<Customer> getAllCustomers() {
-        return customerController.findAllCustomers();
+        return customerRepository.findAllCustomers();
     }
 
     public int getRentedCarId(String id) {
-        return customerController.findRentedCarId(id);
+        return customerRepository.findRentedCarId(id);
     }
 
     public int getCar(String carName) {
-        return carController.findCar(carName);
+        return carRepository.findCar(carName);
     }
 
     public Car getCarById(String id) {
-        return carController.findCarById(id);
+        return carRepository.findCarById(id);
     }
 
     public void updateCustomerRentedCarId(int customerId, int rentedCarId) {
-        customerController.updateRentedCarId(customerId, rentedCarId);
+        customerRepository.updateRentedCarId(customerId, rentedCarId);
     }
 
     public Customer getCustomer(String id) {
-        return customerController.findCustomer(id);
+        return customerRepository.findCustomer(id);
     }
 }

@@ -1,9 +1,9 @@
 package com.sarunas;
 
-import com.sarunas.console.Console;
-import com.sarunas.console.CustomerConsole;
-import com.sarunas.console.ManagerConsole;
-import com.sarunas.controller.*;
+import com.sarunas.controller.MenuController;
+import com.sarunas.controller.CustomerController;
+import com.sarunas.controller.ManagerController;
+import com.sarunas.repository.*;
 import com.sarunas.service.Service;
 
 import java.util.Scanner;
@@ -17,26 +17,26 @@ public class Main {
         CarSharingDatabase.createCompanyTable();
         CarSharingDatabase.createCarTable();
         CarSharingDatabase.createCustomerTable();
-        CompanyController companyController = new CompanyControllerImpl();
-        CarController carController = new CarControllerImpl();
-        CustomerController customerController = new CustomerControllerImpl();
-        Service service = new Service(companyController, carController, customerController);
+        CompanyRepository companyRepository = new CompanyRepositoryImpl();
+        CarRepository carRepository = new CarRepositoryImpl();
+        CustomerRepository customerRepository = new CustomerRepositoryImpl();
+        Service service = new Service(companyRepository, carRepository, customerRepository);
         while (true) {
-            Console console = new Console();
-            console.consoleAction();
+            MenuController menuController = new MenuController();
+            menuController.consoleAction();
             String menu = scanner.nextLine();
             System.out.println("> " + menu + "\n");
             if ("0".equals(menu)) {
                 break;
             } else if ("1".equals(menu)) {
-                console = new ManagerConsole(service);
-                console.consoleAction();
+                menuController = new ManagerController(service);
+                menuController.consoleAction();
             } else if ("2".equals(menu)) {
-                console = new CustomerConsole(service);
-                console.consoleAction();
+                menuController = new CustomerController(service);
+                menuController.consoleAction();
             } else if ("3".equals(menu)) {
-                console = new CustomerConsole(service);
-                console.createCustomer();
+                menuController = new CustomerController(service);
+                menuController.createCustomer();
             }
         }
     }
